@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { sound } from './audio';
+import CartridgeModel from './CartridgeModel';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -461,9 +462,9 @@ export default function App() {
         </div>
       </section>
 
-      {/* Forensic Inspection Modal */}
+      {/* Forensic Inspection Modal with 3D Cartridge Model */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4">
           <div className="relative w-full max-w-xl border-2 border-red-600 bg-[#0d0d10] p-6 shadow-[0px_0px_50px_rgba(255,42,42,0.3)]">
             <button 
               onClick={() => {
@@ -475,34 +476,34 @@ export default function App() {
               [Close X]
             </button>
 
-            <span className="text-xs text-red-500 tracking-widest uppercase">Forensic Analysis Unit</span>
-            <h3 className="text-2xl font-black uppercase tracking-tight mt-1">Decrypted Silver Cartridge</h3>
+            <span className="text-xs text-red-500 tracking-widest uppercase font-mono">Forensic Analysis Unit</span>
+            <h3 className="text-2xl font-black uppercase tracking-tight mt-1">Evidence Docket // Item #092</h3>
 
-            <div className="my-6 border-y border-neutral-800 py-4 space-y-2 text-xs text-neutral-300">
+            {/* Interactive 3D Cartridge Model */}
+            <CartridgeModel />
+
+            {/* Spec Sheet & Telemetry */}
+            <div className="my-4 border-y border-neutral-800 py-3 space-y-2 text-xs text-neutral-300 font-mono">
+              <div className="flex justify-between">
+                <span className="text-neutral-500">SPECIMEN:</span>
+                <span className="font-bold text-white">SILVER HYDRAULIC DISK / CARTRIDGE</span>
+              </div>
               <div className="flex justify-between">
                 <span className="text-neutral-500">METALLURGY:</span>
                 <span className="font-bold text-white">TITANIUM-TUNGSTEN ALLOY</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-500">SERIAL HASH:</span>
-                <span className="font-mono text-red-400">0x7F99B0...E42A</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-neutral-500">STORED PAYLOAD:</span>
-                <span className="font-bold text-white">CORRUPTED BIOMETRIC RECORD</span>
+                <span className="text-neutral-500">PAYLOAD HASH:</span>
+                <span className="font-mono text-red-400">0x7F99B0...E42A (CORRUPTED)</span>
               </div>
             </div>
-
-            <p className="text-xs text-neutral-400 leading-relaxed font-sans">
-              Micro-inscriptions indicate manufacture origin outside registered municipal districts. Firmware contains an automated dead-man cipher wiping memory in 48 hours.
-            </p>
 
             <button 
               onClick={() => {
                 sound.playClick();
                 setIsModalOpen(false);
               }}
-              className="mt-6 w-full border border-white py-2 text-xs font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors"
+              className="mt-4 w-full border border-white py-2 text-xs font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors font-mono"
             >
               Acknowledge &amp; Resume Case File
             </button>
