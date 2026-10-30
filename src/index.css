@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  background-color: #0a0a0c;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'monospace', sans-serif;
+}
+/* Procedural Comic Halftone Pattern */
+.bg-halftone {
+  background-color: #121216;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+
+/* Procedural Ink Cross-Hatch Lines */
+.bg-crosshatch {
+  background-color: #0d0d10;
+  background-image: 
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0, rgba(255, 255, 255, 0.05) 1px, transparent 0, transparent 8px),
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 0, rgba(255, 255, 255, 0.05) 1px, transparent 0, transparent 8px);
+}
+.panel-board {
+  transform-style: preserve-3d !important;
+  will-change: transform;
+}
+
+.panel-left, 
+.panel-right, 
+.panel-bottom {
+  transform-style: preserve-3d !important;
+}
+/* Act IV Diagonal Katana Slice Polygons */
+.slice-top {
+  clip-path: polygon(0 0, 100% 0, 100% calc(50% - 60px), 0 calc(50% + 60px));
+}
+
+.slice-bottom {
+  clip-path: polygon(0 calc(50% + 60px), 100% calc(50% - 60px), 100% 100%, 0 100%);
+}
