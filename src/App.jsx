@@ -90,7 +90,7 @@ export default function App() {
         scale: 0.8,
         opacity: 0,
         ease: 'back.out(1.5)',
-        onStart: () => sound.playImpact(120),
+        onStart: () => sound.playImpact(),
       }, '<0.3')
       .from('.sfx-burst', {
         scale: 0,
@@ -127,7 +127,7 @@ export default function App() {
           rotate: -8,
           opacity: 1,
           ease: 'back.out(2.5)',
-          onStart: () => sound.playImpact(240),
+          onStart: () => sound.playSwoosh(),
         },
         0.45
       );
@@ -140,7 +140,7 @@ export default function App() {
           rotate: 12,
           opacity: 1,
           ease: 'elastic.out(1, 0.4)',
-          onStart: () => sound.playImpact(80),
+          onStart: () => sound.playImpact(),
         },
         0.75
       );
@@ -172,7 +172,7 @@ export default function App() {
         scale: 0.85,
         opacity: 0,
         ease: 'back.out(1.4)',
-        onStart: () => sound.playImpact(140),
+        onStart: () => sound.playImpact(),
       })
       .from('.evidence-badge-tag', {
         scale: 0,
@@ -210,10 +210,9 @@ export default function App() {
           opacity: 1,
           duration: 0.1,
           ease: 'power4.inOut',
-          onStart: () => sound.playImpact(360),
+          onStart: () => sound.playBlade(),
         }
       )
-      // Screen fractures and shears along the diagonal angle
       .to('.slice-top-container', {
         xPercent: -8,
         yPercent: -6,
@@ -235,7 +234,7 @@ export default function App() {
           opacity: 1,
           ease: 'elastic.out(1, 0.3)',
           duration: 0.4,
-          onStart: () => sound.playImpact(60),
+          onStart: () => sound.playImpact(),
         },
         '-=0.3'
       );
@@ -388,7 +387,7 @@ export default function App() {
 
             <div 
               onClick={() => {
-                sound.playDecrypt();
+                sound.playClick();
                 setIsModalOpen(true);
               }}
               className="mt-8 cursor-pointer group border-2 border-dashed border-red-500/80 hover:border-red-500 bg-red-950/20 hover:bg-red-950/40 p-5 transition-all flex items-center justify-between"
@@ -434,7 +433,7 @@ export default function App() {
           className="slash-laser-line pointer-events-none absolute w-[140vw] h-1.5 bg-white shadow-[0_0_25px_#ff2a2a,0_0_50px_#ffffff] z-30 transform -rotate-[3.5deg] origin-center"
         />
 
-        {/* Top Half Layer (Clips upper diagonal half of the centered text) */}
+        {/* Top Half Layer */}
         <div className="slice-top-container slice-top absolute inset-0 bg-[#08080a] flex flex-col justify-center items-center p-8 z-20 select-none">
           <span className="text-xs text-red-500 tracking-[0.4em] uppercase font-bold mb-4">FINAL VERDICT</span>
           <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white text-center">
@@ -445,7 +444,7 @@ export default function App() {
           </p>
         </div>
 
-        {/* Bottom Half Layer (Clips lower diagonal half of the centered text) */}
+        {/* Bottom Half Layer */}
         <div className="slice-bottom-container slice-bottom absolute inset-0 bg-[#08080a] flex flex-col justify-center items-center p-8 z-20 select-none">
           <span className="text-xs text-red-500 tracking-[0.4em] uppercase font-bold mb-4">FINAL VERDICT</span>
           <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-neutral-300 text-center">

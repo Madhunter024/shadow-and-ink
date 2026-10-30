@@ -1,19 +1,20 @@
-// Lightweight procedural Web Audio synthesizer
-class NoirAudioEngine {
+class NoirAudioManager {
   constructor() {
-    this.ctx = null;
     this.isMuted = false;
-  }
 
-  // AudioContext must be initiated by user gesture
-  init() {
-    if (!this.ctx) {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      this.ctx = new AudioCtx();
-    }
-    if (this.ctx.state === 'suspended') {
-      this.ctx.resume();
-    }
+    // Pre-instantiate audio objects so there is zero latency on scroll triggers
+    this.sounds = {
+      click: new Audio('/audio/click.mp3'),
+      impact: new Audio('/audio/impact.mp3'),
+      swoosh: new Audio('/audio/swoosh.mp3'),
+      blade: new Audio('/audio/blade.mp3'),
+    };
+
+    // Preset volumes
+    if (this.sounds.click) this.sounds.click.volume = 0.4;
+    if (this.sounds.impact) this.sounds.impact.volume = 0.6;
+    if (this.sounds.swoosh) this.sounds.swoosh.volume = 0.5;
+    if (this.sounds.blade) this.sounds.blade.volume = 0.7;
   }
 
   toggleMute() {
@@ -21,72 +22,33 @@ class NoirAudioEngine {
     return this.isMuted;
   }
 
-  // 1. Mechanical Clack / Terminal Click (for inspecting evidence & buttons)
+  play(name) {
+    if (this.isMuted) return;
+    const sound = this.sounds[name];
+    if (sound) {
+      // Clone or reset time to 0 so fast repetitive triggers don't cut off
+      sound.currentTime = 0;
+      sound.play().catch(() => {
+        // Silently handles browser autoplay restrictions until first user interaction
+      });
+    }
+  }
+
   playClick() {
-    if (this.isMuted) return;
-    this.init();
-
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(800, this.ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.04);
-
-    gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
-
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-
-    osc.start();
-    osc.stop(this.ctx.currentTime + 0.04);
+    this.play('click');
   }
 
-  // 2. High-Impact Panel Slam / SFX Burst (for SHRRK! and CRACK!)
-  playImpact(freq = 150) {
-    if (this.isMuted) return;
-    this.init();
-
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime + 0.15);
-
-    gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
-
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-
-    osc.start();
-    osc.stop(this.ctx.currentTime + 0.15);
+  playImpact() {
+    this.play('impact');
   }
 
-  // 3. Glitch / Decrypt Chirp (when opening the evidence modal)
-  playDecrypt() {
-    if (this.isMuted) return;
-    this.init();
+  playSwoosh() {
+    this.play('swoosh');
+  }
 
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-
-    osc.type = 'square';
-    osc.frequency.setValueAtTime(300, this.ctx.currentTime);
-    osc.frequency.setValueAtTime(900, this.ctx.currentTime + 0.03);
-    osc.frequency.setValueAtTime(500, this.ctx.currentTime + 0.06);
-
-    gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.12);
-
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-
-    osc.start();
-    osc.stop(this.ctx.currentTime + 0.12);
+  playBlade() {
+    this.play('blade');
   }
 }
 
-export const sound = new NoirAudioEngine();
+export const sound = new NoirAudioManager();
