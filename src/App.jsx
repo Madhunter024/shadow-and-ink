@@ -192,7 +192,6 @@ export default function App() {
         },
       });
 
-      // 1. Extreme Close-up Standoff Panels slide in
       actFourTl.from('.slash-standoff-top', {
         xPercent: -100,
         opacity: 0,
@@ -203,7 +202,6 @@ export default function App() {
         opacity: 0,
         duration: 0.3,
       }, '<0.1')
-      // 2. High-speed white laser/slash beam strikes across the seam
       .fromTo(
         '.slash-laser-line',
         { scaleX: 0, opacity: 0 },
@@ -215,22 +213,19 @@ export default function App() {
           onStart: () => sound.playImpact(360),
         }
       )
-      // 3. Screen fractures: halves violently shear apart diagonally
+      // Screen fractures and shears along the diagonal angle
       .to('.slice-top-container', {
-        xPercent: -15,
-        yPercent: -20,
-        rotate: -3,
+        xPercent: -8,
+        yPercent: -6,
         duration: 0.5,
         ease: 'power3.out',
       }, '+=0.05')
       .to('.slice-bottom-container', {
-        xPercent: 15,
-        yPercent: 20,
-        rotate: 3,
+        xPercent: 8,
+        yPercent: 6,
         duration: 0.5,
         ease: 'power3.out',
       }, '<')
-      // 4. Climax SFX Callout punches through the fissure
       .fromTo(
         '.sfx-zraash',
         { scale: 0, rotate: -25, opacity: 0 },
@@ -272,7 +267,7 @@ export default function App() {
       <div 
         className="pointer-events-none fixed inset-0 z-40 transition-opacity duration-300"
         style={{
-          background: 'radial-gradient(circle 280px at var(--cursor-x, 50vw) var(--cursor-y, 50vh), rgba(255, 42, 42, 0.15) 0%, rgba(0, 0, 0, 0.85) 70%, rgba(10, 10, 12, 0.98) 100%)',
+          background: 'radial-gradient(circle 420px at var(--cursor-x, 50vw) var(--cursor-y, 50vh), rgba(255, 42, 42, 0.12) 0%, rgba(0, 0, 0, 0.6) 65%, rgba(10, 10, 12, 0.92) 100%)',
         }}
       />
 
@@ -319,7 +314,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Section Divider 1 */}
+      {/* Section Divider */}
       <div className="h-[40vh] flex flex-col items-center justify-center border-y border-neutral-800 text-center px-4">
         <span className="text-xs text-red-500 tracking-[0.3em] uppercase">Pursuit Commenced</span>
         <h3 className="text-2xl md:text-3xl font-extrabold uppercase mt-2">Traversing Sector 9 Rooftops</h3>
@@ -436,26 +431,33 @@ export default function App() {
 
         {/* Diagonal Katana Slash Laser Beam */}
         <div 
-          className="slash-laser-line pointer-events-none absolute w-[140vw] h-1 bg-white shadow-[0_0_25px_#ff2a2a,0_0_50px_#ffffff] z-30 transform -rotate-[7deg] origin-center"
+          className="slash-laser-line pointer-events-none absolute w-[140vw] h-1.5 bg-white shadow-[0_0_25px_#ff2a2a,0_0_50px_#ffffff] z-30 transform -rotate-[3.5deg] origin-center"
         />
 
-        {/* Severed Screen Top Half */}
-        <div className="slice-top-container slice-top absolute inset-0 bg-[#08080a] border-4 border-white flex flex-col justify-center items-center p-8 z-20">
-          <span className="text-xs text-red-500 tracking-[0.4em] uppercase">FINAL VERDICT</span>
-          <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-neutral-200 mt-2">
+        {/* Top Half Layer (Clips upper diagonal half of the centered text) */}
+        <div className="slice-top-container slice-top absolute inset-0 bg-[#08080a] flex flex-col justify-center items-center p-8 z-20 select-none">
+          <span className="text-xs text-red-500 tracking-[0.4em] uppercase font-bold mb-4">FINAL VERDICT</span>
+          <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white text-center">
             STEEL MEETS SHADOW
           </h2>
+          <p className="text-sm md:text-lg font-bold uppercase tracking-widest text-neutral-500 mt-6">
+            THE OPERATIVE SLIPS INTO THE RAIN
+          </p>
         </div>
 
-        {/* Severed Screen Bottom Half */}
-        <div className="slice-bottom-container slice-bottom absolute inset-0 bg-[#0c0c10] border-4 border-red-600 flex flex-col justify-center items-center p-8 z-20">
-          <p className="text-lg md:text-2xl font-bold uppercase tracking-tight text-red-400 mt-28">
-            The screen splits. The operative slips into the rain.
+        {/* Bottom Half Layer (Clips lower diagonal half of the centered text) */}
+        <div className="slice-bottom-container slice-bottom absolute inset-0 bg-[#08080a] flex flex-col justify-center items-center p-8 z-20 select-none">
+          <span className="text-xs text-red-500 tracking-[0.4em] uppercase font-bold mb-4">FINAL VERDICT</span>
+          <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-neutral-300 text-center">
+            STEEL MEETS SHADOW
+          </h2>
+          <p className="text-sm md:text-lg font-bold uppercase tracking-widest text-neutral-500 mt-6">
+            THE OPERATIVE SLIPS INTO THE RAIN
           </p>
         </div>
 
         {/* Climax Impact SFX Callout */}
-        <div className="sfx-zraash absolute z-40 bg-red-600 text-white font-black text-6xl md:text-9xl px-8 py-3 border-4 border-white shadow-[10px_10px_0px_#ffffff] transform -rotate-6 pointer-events-none">
+        <div className="sfx-zraash absolute z-40 bg-red-600 text-white font-black text-5xl md:text-8xl px-8 py-3 border-4 border-white shadow-[10px_10px_0px_#ffffff] transform -rotate-6 pointer-events-none">
           ZRAAASH!
         </div>
       </section>

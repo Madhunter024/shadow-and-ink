@@ -35,10 +35,11 @@ html, body {
   transform-style: preserve-3d !important;
 }
 /* Act IV Diagonal Katana Slice Polygons */
+/* Precise Diagonal Slice Polygons cutting through true center */
 .slice-top {
-  clip-path: polygon(0 0, 100% 0, 100% calc(50% - 60px), 0 calc(50% + 60px));
+  clip-path: polygon(0 0, 100% 0, 100% calc(50% - 30px), 0 calc(50% + 30px));
 }
 
 .slice-bottom {
-  clip-path: polygon(0 calc(50% + 60px), 100% calc(50% - 60px), 100% 100%, 0 100%);
+  clip-path: polygon(0 calc(50% + 30px), 100% calc(50% - 30px), 100% 100%, 0 100%);
 }
